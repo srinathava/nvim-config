@@ -10,14 +10,6 @@ local function root_dir()
     return dir_containing('.git')
 end
 
-local function proj_dir()
-    local projdir = dir_containing('BUILD')
-    if projdir then
-        return projdir
-    end
-    return vim.fn.getcwd()
-end
-
 local function find_files()
     require('telescope.builtin').find_files({ cwd = root_dir() })
 end
@@ -27,11 +19,11 @@ local function grep_files()
 end
 
 local function find_files_cwd()
-    require('telescope.builtin').find_files({ cwd = proj_dir() })
+    require('telescope.builtin').find_files({ cwd = vim.fn.getcwd() })
 end
 
 local function grep_files_cwd()
-    require('telescope.builtin').live_grep({ cwd = proj_dir() })
+    require('telescope.builtin').live_grep({ cwd = vim.fn.getcwd() })
 end
 
 -- Telescope
@@ -39,19 +31,20 @@ return {
     "nvim-telescope/telescope.nvim",
     cmd = "Telescope",
     keys = {
-        {"<F4>", find_files_cwd},
-        {"<leader>fF", find_files, desc = "Find files (root)" },
-        {"<leader>ff", find_files_cwd, desc = "Find files (current dir)" },
-        {"<leader>fS", grep_files, desc = "Search in files (root)" },
-        {"<leader>fs", grep_files_cwd, desc = "Search in files (current dir)" },
-        {"<F3>", "<CMD>Telescope buffers<CR>"}
+        { "<F4>",       find_files_cwd },
+        { "<leader>fF", find_files,                  desc = "Find files (root)" },
+        { "<leader>ff", find_files_cwd,              desc = "Find files (current dir)" },
+        { "<leader>fS", grep_files,                  desc = "Search in files (root)" },
+        { "<leader>fs", grep_files_cwd,              desc = "Search in files (current dir)" },
+        { "<F3>",       "<CMD>Telescope buffers<CR>" }
     },
     -- This dependency allows FZF style completion, i.e., you can put
     -- spaces between characters etc.
     dependencies = {
         {
             'nvim-telescope/telescope-fzf-native.nvim',
-            build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build'
+            build =
+            'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build'
         }
     },
     config = function()

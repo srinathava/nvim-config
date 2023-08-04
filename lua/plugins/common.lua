@@ -3,9 +3,9 @@ return {
     "nvim-lua/plenary.nvim", -- Useful lua functions used by lots of plugins
 
     -- Colorschemes
-    { 'folke/tokyonight.nvim', lazy = true},
+    { 'folke/tokyonight.nvim', lazy = true },
 
-    { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
+    { "catppuccin/nvim",       name = "catppuccin", priority = 1000 },
 
     -- LSP
     {
@@ -30,15 +30,15 @@ return {
 
     -- cmp plugins
     {
-        "hrsh7th/nvim-cmp", -- The completion plugin
+        "hrsh7th/nvim-cmp",             -- The completion plugin
         dependencies = {
-            "hrsh7th/cmp-buffer", -- buffer completions
+            "hrsh7th/cmp-buffer",       -- buffer completions
             "saadparwaiz1/cmp_luasnip", -- snippet completions
             "hrsh7th/cmp-nvim-lsp",
             'hrsh7th/cmp-nvim-lsp-signature-help',
 
             -- snippets
-            "L3MON4D3/LuaSnip", --snippet engine
+            "L3MON4D3/LuaSnip",             --snippet engine
             "rafamadriz/friendly-snippets", -- a bunch of snippets to use
         },
         event = "InsertEnter",
@@ -67,9 +67,9 @@ return {
         branch = "v3.x",
         cmd = "Neotree",
         dependencies = {
-          "nvim-lua/plenary.nvim",
-          "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
-          "MunifTanjim/nui.nvim",
+            "nvim-lua/plenary.nvim",
+            "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+            "MunifTanjim/nui.nvim",
         }
     },
 
@@ -84,6 +84,20 @@ return {
         config = function()
             require('gitsigns').setup()
         end
-    }
-}
+    },
 
+    {
+        "jay-babu/mason-null-ls.nvim",
+        event = { "BufReadPre", "BufNewFile" },
+        dependencies = {
+            "williamboman/mason.nvim",
+            "jose-elias-alvarez/null-ls.nvim",
+        },
+        config = function()
+            require("mason-null-ls").setup({
+                ensure_installed = { "clang-format" }
+            })
+        end,
+    }
+
+}

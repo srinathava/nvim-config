@@ -40,17 +40,17 @@ local function lsp_highlight_document(client, bufnr)
     vim.o.updatetime = 500
     if client.server_capabilities.documentHighlightProvider then
         vim.api.nvim_exec2(
-        [[
+            [[
         augroup lsp_document_highlight
             autocmd! * <buffer>
             autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
             autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
         augroup END
         ]],
-        { output = false }
+            { output = false }
         )
     end
-    vim.api.nvim_create_autocmd({"CursorHold"}, {
+    vim.api.nvim_create_autocmd({ "CursorHold" }, {
         buffer = bufnr,
         callback = onCursorHold
     })
@@ -75,11 +75,25 @@ local function lsp_keymaps(bufnr)
 end
 
 M.on_attach = function(client, bufnr)
-    if client.name == "tsserver" then
+    -- use a custom clang-format
+    if client.name == "tsserver" or client.name == "clangd" then
         client.server_capabilities.documentFormattingProvider = false
     end
     lsp_keymaps(bufnr)
     lsp_highlight_document(client, bufnr)
+
+    local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
+    if client.supports_method("textDocument/formatting") then
+        print('setting up formatting for ' .. client.name)
+        vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+        vim.api.nvim_create_autocmd("BufWritePre", {
+            group = augroup,
+            buffer = bufnr,
+            callback = function()
+                vim.lsp.buf.format()
+            end,
+        })
+    end
 
     vim.api.nvim_buf_set_option(0, 'formatexpr', 'v:lua.vim.lsp.formatexpr()')
 end
