@@ -51,7 +51,9 @@ return {
         "akinsho/toggleterm.nvim",
         cmd = "ToggleTerm",
         config = function()
-            require("toggleterm").setup()
+            require("toggleterm").setup({
+                shell = "/usr/bin/zsh"
+            })
         end
     },
 
