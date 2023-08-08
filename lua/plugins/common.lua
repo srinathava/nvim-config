@@ -97,9 +97,15 @@ return {
         },
         config = function()
             require("mason-null-ls").setup({
-                ensure_installed = { "clang-format" }
+                ensure_installed = { "clang-format" },
+                automatic_installation = true
             })
         end,
+    },
+
+    {
+        'tpope/vim-abolish',
+        cmd = { "Subvert" }
     }
 
 }

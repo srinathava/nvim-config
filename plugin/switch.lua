@@ -30,13 +30,17 @@ local function switchFiles()
         ::continue::
     end
 
-    -- if not, try to find it in the current directory. Note this can be
-    -- slow depending on where we currently are.
     local cmd
+    local projdir = require('user.cruise').projdir()
+    -- I swill want things to work outside cruise repos.
+    if projdir == nil then
+        projdir = vim.fn.getcwd()
+    end
+    print(projdir)
     if vim.fn.executable('fd') then
-        cmd = "fd --glob '" .. curbase .. otherext .. "'"
+        cmd = "fd --glob '" .. curbase .. otherext .. "' " .. projdir
     else
-        cmd = "find . --name '" .. curbase .. otherext .. "'"
+        cmd = "find " .. projdir .. " --name '" .. curbase .. otherext .. "'"
     end
     local output = vim.fn.system(cmd)
     if string.len(output) > 0 then
