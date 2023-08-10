@@ -76,7 +76,7 @@ end
 
 M.on_attach = function(client, bufnr)
     -- use a custom clang-format
-    if client.name == "tsserver" or client.name == "clangd" then
+    if client.name == "tsserver" then
         client.server_capabilities.documentFormattingProvider = false
     end
     lsp_keymaps(bufnr)
