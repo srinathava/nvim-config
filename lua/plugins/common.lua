@@ -133,5 +133,17 @@ return {
         end,
     },
 
+    {
+        'dyng/ctrlsf.vim',
+        cmd = { 'CtrlSF', 'CtrlSFOpen', 'CtrlSFToggle' },
+        config = function()
+            vim.g.ctrlsf_auto_close = {
+                normal = 0,
+                compact = 0
+            }
+            vim.g.ctrlsf_winsize = '30%'
+        end
+    }
+
 
 }

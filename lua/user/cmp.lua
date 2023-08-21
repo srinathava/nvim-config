@@ -1,5 +1,5 @@
 -- Setup nvim-cmp.
-local cmp = require'cmp'
+local cmp = require 'cmp'
 
 local prev = cmp.mapping({
     i = function(fallback)
@@ -32,8 +32,9 @@ cmp.setup({
         documentation = cmp.config.window.bordered(),
     },
     mapping = cmp.mapping.preset.insert({
-        ['<CR>'] = cmp.mapping.confirm({ select = false, behavior = cmp.ConfirmBehavior.Replace }),
-        ['<tab>'] = cmp.mapping(cmp.mapping.confirm({ select = true, behavior = cmp.ConfirmBehavior.Replace }), { 'i', 's', 'c' }),
+        ['<CR>'] = cmp.mapping.confirm({ select = false, behavior = cmp.ConfirmBehavior.Insert }),
+        ['<tab>'] = cmp.mapping(cmp.mapping.confirm({ select = true, behavior = cmp.ConfirmBehavior.Insert }), { 'i', 's',
+            'c' }),
         ['<C-n>'] = next,
         ['<C-j>'] = next,
         ['<Down>'] = next,
@@ -53,10 +54,10 @@ cmp.setup.cmdline(':', {
     enabled = false,
 })
 
-cmp.setup.filetype({'MW_FILES'}, {
+cmp.setup.filetype({ 'MW_FILES' }, {
     enabled = false
 })
 
 -- Otherwise, press <tab> inserts a literal ^[ character in the command
 -- line.
-vim.cmd[[autocmd CmdLineEnter * silent! cunmap <tab>]]
+vim.cmd [[autocmd CmdLineEnter * silent! cunmap <tab>]]
