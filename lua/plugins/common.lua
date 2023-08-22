@@ -8,16 +8,6 @@ return {
     { "catppuccin/nvim",       name = "catppuccin", priority = 1000 },
 
     -- LSP
-
-    {
-        -- allows for project specific settings for clangd etc.
-        -- Automatically picks up .vscode/settings.json etc.
-        "folke/neoconf.nvim",
-        config = function()
-            require('neoconf').setup()
-        end,
-    },
-
     {
         "neovim/nvim-lspconfig", -- enable LSP
         event = { "BufReadPre", "BufNewFile" },
@@ -26,7 +16,6 @@ return {
             "jose-elias-alvarez/null-ls.nvim",
             "williamboman/mason.nvim",
             { "folke/neodev.nvim", opts = {} },
-            "folke/neoconf.nvim", -- neoconf needs to be setup before lspconfig
         },
         config = function()
             require("user.lsp")

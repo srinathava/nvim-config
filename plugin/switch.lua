@@ -31,7 +31,7 @@ local function switchFiles()
     end
 
     local cmd
-    local projdir = require('user.cruise').projdir()
+    local projdir = require('user.myproj').projdir()
     -- I swill want things to work outside cruise repos.
     if projdir == nil then
         projdir = vim.fn.getcwd()
