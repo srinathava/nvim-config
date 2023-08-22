@@ -25,7 +25,7 @@ return {
     {
         "williamboman/mason.nvim",
         build = ":MasonUpdate", -- :MasonUpdate updates registry contents
-        cmd = "Mason"
+        cmd = { "Mason", "MasonUpdate" }
     },
 
     -- cmp plugins
