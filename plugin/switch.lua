@@ -30,13 +30,8 @@ local function switchFiles()
         ::continue::
     end
 
+    local projdir = require('user.myproj').projdir() or vim.fn.getcwd()
     local cmd
-    local projdir = require('user.myproj').projdir()
-    -- I swill want things to work outside cruise repos.
-    if projdir == nil then
-        projdir = vim.fn.getcwd()
-    end
-    print(projdir)
     if vim.fn.executable('fd') then
         cmd = "fd --glob '" .. curbase .. otherext .. "' " .. projdir
     else
@@ -44,7 +39,10 @@ local function switchFiles()
     end
     local output = vim.fn.system(cmd)
     if string.len(output) > 0 then
-        vim.cmd('drop ' .. output)
+        -- TODO: Would be nice to handle the case of multiple files by
+        -- sorting the files w.r.t relative distance from the source file.
+        local lines = vim.fn.split(output, "\n")
+        vim.cmd('drop ' .. lines[1])
     end
 end
 

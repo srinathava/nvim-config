@@ -26,17 +26,21 @@ local function grep_files_cwd()
     require('telescope.builtin').live_grep({ cwd = vim.fn.getcwd() })
 end
 
+local function buffers_mru()
+    require('telescope.builtin').buffers({ sort_mru = true })
+end
+
 -- Telescope
 return {
     "nvim-telescope/telescope.nvim",
     cmd = "Telescope",
     keys = {
         { "<F4>",       find_files_cwd },
-        { "<leader>fF", find_files,                  desc = "Find files (root)" },
-        { "<leader>ff", find_files_cwd,              desc = "Find files (current dir)" },
-        { "<leader>fS", grep_files,                  desc = "Search in files (root)" },
-        { "<leader>fs", grep_files_cwd,              desc = "Search in files (current dir)" },
-        { "<F3>",       "<CMD>Telescope buffers<CR>" }
+        { "<leader>fF", find_files,     desc = "Find files (root)" },
+        { "<leader>ff", find_files_cwd, desc = "Find files (current dir)" },
+        { "<leader>fS", grep_files,     desc = "Search in files (root)" },
+        { "<leader>fs", grep_files_cwd, desc = "Search in files (current dir)" },
+        { "<F3>",       buffers_mru }
     },
     -- This dependency allows FZF style completion, i.e., you can put
     -- spaces between characters etc.
