@@ -3,17 +3,17 @@ local Terminal = require('toggleterm.terminal').Terminal
 
 -- https://stackoverflow.com/questions/6380820/get-containing-path-of-lua-file
 local function script_path()
-   local str = debug.getinfo(2, "S").source:sub(2)
-   return str:match("(.*/)")
+    local str = debug.getinfo(2, "S").source:sub(2)
+    return str:match("(.*/)")
 end
 
 local function create_lazygit_term()
     local cmd = 'lazygit'
     if vim.fn.executable('nvr') then
         -- If nvr is found, then use it within neovim
-        cmd = 'lazygit -ucf ~/.config/lazygit/config.yml,'..script_path()..'lazygit_nvr.yml'
+        cmd = 'lazygit -ucf ~/.config/lazygit/config.yml,' .. script_path() .. 'lazygit_nvr.yml'
     end
-    cmd = "VIM= VIMRUNTIME= "..cmd
+    cmd = "VIM= VIMRUNTIME= " .. cmd
     return Terminal:new({
         cmd = cmd,
         hidden = true,
@@ -28,15 +28,15 @@ end
 local terminals_created = {}
 
 local function new_terminal()
-    local name  = vim.fn.input('Enter a name for the terminal: ')
-    local term = Terminal:new({
+    local name                              = vim.fn.input('Enter a name for the terminal: ')
+    local term                              = Terminal:new({
         hidden = true,
         direction = "float",
     })
-    terminals_created[#terminals_created+1] = term
-    local curnum = #terminals_created
+    terminals_created[#terminals_created + 1] = term
+    local curnum                            = #terminals_created
     wk.register({
-        ["<space>t"..curnum] = { function() term:toggle() end , "Terminal "..curnum..": "..name }
+        ["<space>t" .. curnum] = { function() term:toggle() end, "Terminal " .. curnum .. ": " .. name }
     })
     term:toggle()
 end
@@ -51,8 +51,8 @@ M.setup = function()
     wk.setup()
     wk.register({
         m = {
-            name = "MathWorks",
-            c = { "<cmd>MWCompileProject<cr>", "Compile current project" },
+            name = "Project",
+            c = { "<cmd>lua require('user.myproj').copygithub()<cr>", "Copy GitHub URL" },
             o = { "<cmd>MWOpenFile<cr>", "Open file" },
         },
         t = {

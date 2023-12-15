@@ -117,6 +117,26 @@ return {
             }
             vim.g.ctrlsf_winsize = '30%'
         end
+    },
+
+    {
+        dir = '/home/srinath.avadhanula/code/vim-tools-v2',
+        name = 'vim-tools-dev',
+        cmd = { 'Termdebug' }
+    },
+
+    {
+        -- The clangd LSP server has formatting support, but it does not
+        -- seem to have the same behavior as invoking the clang-format
+        -- binary leading to unexpected linter errors.
+        'rhysd/vim-clang-format',
+        event = { "BufWritePre" },
+        cmd = { "ClangFormat" },
+        config = function()
+            vim.g['clang_format#auto_format'] = 1
+            vim.g['clang_format#detect_style_file'] = 1
+            vim.g['clang_format#command'] = '/home/srinath.avadhanula/cruise/tools/clang-format'
+        end
     }
 
 

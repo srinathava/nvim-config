@@ -31,6 +31,6 @@ return {
         end
     end,
     filetypes = { "c", "cpp", "cuda", "objc", "objcpp" },
-    root_dir = lspconfig.util.root_pattern("mw_anchor", ".git"),
+    root_dir = lspconfig.util.root_pattern("mw_anchor", "compile_commands.json", ".git"),
     capabilities = capabilities
 }
