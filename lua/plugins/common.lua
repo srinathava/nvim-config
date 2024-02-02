@@ -137,6 +137,11 @@ return {
             vim.g['clang_format#detect_style_file'] = 1
             vim.g['clang_format#command'] = '/home/srinath.avadhanula/cruise/tools/clang-format'
         end
+    },
+
+    {
+        'gennaro-tedesco/nvim-jqx',
+        cmd = { "JqxList", "JqxQuery" }
     }
 
 
