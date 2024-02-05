@@ -116,6 +116,7 @@ return {
                 compact = 0
             }
             vim.g.ctrlsf_winsize = '30%'
+            vim.g.ctrlsf_default_view_mode = 'compact'
         end
     },
 
