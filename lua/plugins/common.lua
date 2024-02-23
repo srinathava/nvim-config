@@ -143,7 +143,11 @@ return {
     {
         'gennaro-tedesco/nvim-jqx',
         cmd = { "JqxList", "JqxQuery" }
-    }
+    },
 
+    {
+        'github/copilot.vim',
+        cmd = { "Copilot" }
+    }
 
 }
