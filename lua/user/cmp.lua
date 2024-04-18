@@ -33,8 +33,9 @@ cmp.setup({
     },
     mapping = cmp.mapping.preset.insert({
         ['<CR>'] = cmp.mapping.confirm({ select = false, behavior = cmp.ConfirmBehavior.Insert }),
-        ['<tab>'] = cmp.mapping(cmp.mapping.confirm({ select = true, behavior = cmp.ConfirmBehavior.Insert }), { 'i', 's',
-            'c' }),
+        ['<tab>'] = cmp.mapping(cmp.mapping.confirm({ select = true, behavior = cmp.ConfirmBehavior.Insert }),
+            { 'i', 's',
+                'c' }),
         ['<C-n>'] = next,
         ['<C-j>'] = next,
         ['<Down>'] = next,
@@ -43,10 +44,10 @@ cmp.setup({
         ['<Up>'] = prev,
     }),
     sources = {
-        { name = 'nvim_lsp' },
-        { name = 'luasnip' },
-        { name = 'buffer' },
-        { name = 'nvim_lsp_signature_help' },
+        { name = 'copilot',                 group_index = 2 },
+        { name = 'nvim_lsp',                group_index = 2 },
+        { name = 'buffer',                  group_index = 2 },
+        { name = 'nvim_lsp_signature_help', group_index = 2 },
     }
 })
 

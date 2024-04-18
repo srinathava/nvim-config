@@ -30,15 +30,15 @@ return {
 
     -- cmp plugins
     {
-        "hrsh7th/nvim-cmp",             -- The completion plugin
+        "hrsh7th/nvim-cmp",       -- The completion plugin
         dependencies = {
-            "hrsh7th/cmp-buffer",       -- buffer completions
-            "saadparwaiz1/cmp_luasnip", -- snippet completions
+            "hrsh7th/cmp-buffer", -- buffer completions
+            -- "saadparwaiz1/cmp_luasnip", -- snippet completions
             "hrsh7th/cmp-nvim-lsp",
             'hrsh7th/cmp-nvim-lsp-signature-help',
 
             -- snippets
-            "L3MON4D3/LuaSnip",             --snippet engine
+            -- "L3MON4D3/LuaSnip",             --snippet engine
             "rafamadriz/friendly-snippets", -- a bunch of snippets to use
         },
         event = "InsertEnter",
@@ -94,6 +94,15 @@ return {
     },
 
     {
+        "nvim-treesitter/nvim-treesitter",
+        build = ":TSUpdate",
+        config = function()
+            require('user.treesitter').setup()
+        end,
+        event = { "BufReadPre", "BufNewFile" }
+    },
+
+    {
         -- Super useful plugin for navigating C++ code. Shows a live
         -- context of which function you are in the middle of when
         -- scrolling through ginormous functions.
@@ -130,7 +139,7 @@ return {
         -- The clangd LSP server has formatting support, but it does not
         -- seem to have the same behavior as invoking the clang-format
         -- binary leading to unexpected linter errors.
-        'rhysd/vim-clang-format',
+        'srinathava/vim-clang-format',
         event = { "BufWritePre" },
         cmd = { "ClangFormat" },
         config = function()
@@ -146,8 +155,22 @@ return {
     },
 
     {
-        'github/copilot.vim',
-        cmd = { "Copilot" }
-    }
+        "zbirenbaum/copilot.lua",
+        cmd = "Copilot",
+        event = "InsertEnter",
+        config = function()
+            require("copilot").setup({
+                suggestion = { enabled = false },
+                panel = { enabled = false },
+            })
+        end,
+    },
+    {
+        "zbirenbaum/copilot-cmp",
+        config = function()
+            require("copilot_cmp").setup()
+        end,
+    },
+
 
 }
