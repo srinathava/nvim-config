@@ -1,5 +1,6 @@
 -- Setup nvim-cmp.
 local cmp = require 'cmp'
+local luasnip = require 'luasnip'
 
 local prev = cmp.mapping({
     i = function(fallback)
@@ -24,7 +25,7 @@ local next = cmp.mapping({
 cmp.setup({
     snippet = {
         expand = function(args)
-            require('luasnip').lsp_expand(args.body)
+            luasnip.lsp_expand(args.body)
         end,
     },
     window = {
@@ -34,14 +35,29 @@ cmp.setup({
     mapping = cmp.mapping.preset.insert({
         ['<CR>'] = cmp.mapping.confirm({ select = false, behavior = cmp.ConfirmBehavior.Insert }),
         ['<tab>'] = cmp.mapping(cmp.mapping.confirm({ select = true, behavior = cmp.ConfirmBehavior.Insert }),
-            { 'i', 's',
-                'c' }),
+            { 'i', 's', 'c' }),
         ['<C-n>'] = next,
         ['<C-j>'] = next,
         ['<Down>'] = next,
         ['<C-p>'] = prev,
         ['<C-k>'] = prev,
         ['<Up>'] = prev,
+
+        ['<C-f>'] = cmp.mapping(function(fallback)
+            if luasnip.jumpable(1) then
+                luasnip.jump(1)
+            else
+                fallback()
+            end
+        end, { 'i', 's' }),
+
+        ['<C-b>'] = cmp.mapping(function(fallback)
+            if luasnip.jumpable(-1) then
+                luasnip.jump(-1)
+            else
+                fallback()
+            end
+        end, { 'i', 's' }),
     }),
     sources = {
         { name = 'copilot',                 group_index = 2 },
