@@ -22,7 +22,8 @@ end
 
 M.copygithub = function()
     local relpath = getrelpath()
-    local url = 'https://sourcegraph.robot.car/github.robot.car/cruise/cruise/-/blob/' ..
+    local reponame = vim.fn.fnamemodify(M.rootdir(), ':p:h:t')
+    local url = 'https://sourcegraph.robot.car/github.robot.car/cruise/' .. reponame .. '/-/blob/' ..
         relpath .. '?L' .. vim.fn.line('.')
     vim.fn.setreg('+', url)
 end
