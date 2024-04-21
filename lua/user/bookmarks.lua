@@ -8,6 +8,7 @@ local finders = require "telescope.finders"
 local json = require 'json'
 local pickers = require "telescope.pickers"
 local previewers = require "telescope.previewers"
+local utils = require "telescope.utils"
 
 local ns_previewer = vim.api.nvim_create_namespace "telescope.previewers"
 
@@ -134,9 +135,9 @@ M.pick = function(opts)
                     value = entry,
                     display = function()
                         if entry.lnum == -1 then
-                            return '[D] ' .. entry.path
+                            return entry.path
                         end
-                        return '[F] ' .. entry.path .. ':' .. entry.lnum
+                        return utils.transform_path(opts, entry.path .. ':' .. entry.lnum)
                     end,
                     ordinal = entry.path .. ':' .. entry.lnum,
                 }
