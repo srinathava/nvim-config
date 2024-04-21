@@ -84,12 +84,39 @@ local load_bookmarks = function()
     return bookmarks
 end
 
+local M = {}
+
+M.get_bookmarks =  load_bookmarks
+
 local save_bookmarks = function()
     local bookmark_file = init_file()
     writefile(bookmark_file, json.encode(bookmarks))
+    M.refresh_bookmarks()
 end
 
-local M = {}
+local function goto_bookmark(bookmark)
+    if bookmark.lnum == -1 then
+        -- print cd command in light green
+        vim.cmd('echohl Directory')
+        vim.cmd('echomsg "cd ' .. bookmark.path .. '"')
+        vim.cmd('echohl None')
+        vim.cmd('cd ' .. bookmark.path)
+    else
+        vim.cmd('drop ' .. bookmark.path)
+        vim.cmd('' .. bookmark.lnum)
+    end
+end
+
+M.goto = function(idx)
+    bookmarks = load_bookmarks()
+    for i, bookmark in ipairs(bookmarks) do
+        if i == idx then
+            goto_bookmark(bookmark)
+            return
+        end
+    end
+end
+
 M.pick = function(opts)
     opts = opts or {}
     bookmarks = load_bookmarks()
@@ -122,13 +149,7 @@ M.pick = function(opts)
                 actions.close(prompt_bufnr)
                 local selection = action_state.get_selected_entry()
                 local value = selection.value
-                print(vim.inspect(value))
-                if value.lnum == -1 then
-                    vim.cmd('cd ' .. value.path)
-                else
-                    vim.cmd('drop ' .. value.path)
-                    vim.cmd('' .. value.lnum)
-                end
+                goto_bookmark(value)
             end)
             actions.delete_buffer:replace(function()
                 action_state.get_current_picker(prompt_bufnr):delete_selection(function(selection)
@@ -206,6 +227,38 @@ M.setup = function()
     vim.cmd [[command! BookmarkRemove lua require('user.bookmarks').remove()]]
     vim.cmd [[command! BookmarkPick lua require('user.bookmarks').pick()]]
     vim.cmd [[autocmd BufReadPost * lua require('user.bookmarks').refresh()]]
+end
+
+--- Add bookmarks to which-key
+local add_bookmarks = function()
+    local wk = require('which-key')
+
+    bookmarks = load_bookmarks()
+    for i, bookmark in ipairs(bookmarks) do
+        local key = "<space>b" .. i
+        -- truncate path from left if its too long
+        local path = bookmark.path
+        local path_limit = 27
+        if string.len(path) > path_limit then
+            path = "..." .. string.sub(path, string.len(path) - path_limit - 2)
+        end
+        wk.register({
+            [key] = { function() require('user.bookmarks').goto(i) end, "[" .. i .. "] " .. path }
+        })
+    end
+end
+
+M.refresh_bookmarks = function()
+    local wk = require('which-key')
+    wk.register({
+        b = {
+            name = "Bookmarks",
+            a = { "<cmd>lua require('user.bookmarks').add()<cr>", "Bookmark current line" },
+            d = { "<cmd>lua require('user.bookmarks').add_dir()<cr>", "Bookmark current directory" },
+            p = { "<cmd>lua require('user.bookmarks').pick()<cr>", "Choose bookmark" },
+        }
+    }, { prefix = "<space>" })
+    add_bookmarks()
 end
 
 return M

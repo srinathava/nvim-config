@@ -60,14 +60,9 @@ M.setup = function()
             f = { "<cmd>ToggleTerm direction=float<cr>", "Floating" },
             n = { new_terminal, "New terminal" },
         },
-        b = {
-            name = "Bookmarks",
-            a = { "<cmd>lua require('user.bookmarks').add()<cr>", "Bookmark current line" },
-            d = { "<cmd>lua require('user.bookmarks').add_dir()<cr>", "Bookmark current directory" },
-            p = { "<cmd>lua require('user.bookmarks').pick()<cr>", "Choose bookmark" },
-        },
         G = { toggle_lazygit, "Lazygit" }
     }, { prefix = "<space>" })
+    require('user.bookmarks').refresh_bookmarks()
 end
 
 return M
