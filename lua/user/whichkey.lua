@@ -28,13 +28,13 @@ end
 local terminals_created = {}
 
 local function new_terminal()
-    local name                              = vim.fn.input('Enter a name for the terminal: ')
-    local term                              = Terminal:new({
+    local name                                = vim.fn.input('Enter a name for the terminal: ')
+    local term                                = Terminal:new({
         hidden = true,
         direction = "float",
     })
     terminals_created[#terminals_created + 1] = term
-    local curnum                            = #terminals_created
+    local curnum                              = #terminals_created
     wk.register({
         ["<space>t" .. curnum] = { function() term:toggle() end, "Terminal " .. curnum .. ": " .. name }
     })
@@ -59,6 +59,12 @@ M.setup = function()
             name = "Terminal",
             f = { "<cmd>ToggleTerm direction=float<cr>", "Floating" },
             n = { new_terminal, "New terminal" },
+        },
+        b = {
+            name = "Bookmarks",
+            a = { "<cmd>lua require('user.bookmarks').add()<cr>", "Bookmark current line" },
+            d = { "<cmd>lua require('user.bookmarks').add_dir()<cr>", "Bookmark current directory" },
+            p = { "<cmd>lua require('user.bookmarks').pick()<cr>", "Choose bookmark" },
         },
         G = { toggle_lazygit, "Lazygit" }
     }, { prefix = "<space>" })
