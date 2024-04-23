@@ -141,7 +141,7 @@ return {
         -- binary leading to unexpected linter errors.
         'srinathava/vim-clang-format',
         event = { "BufWritePre" },
-        cmd = { "ClangFormat" },
+        cmd = { "ClangFormat", "ClangFormatAutoDisable", "ClangFormatAutoEnable" },
         config = function()
             vim.g['clang_format#auto_format'] = 1
             vim.g['clang_format#detect_style_file'] = 1
@@ -176,7 +176,7 @@ return {
         branch = "canary",
         dependencies = {
             { "zbirenbaum/copilot.lua" }, -- or github/copilot.vim
-            { "nvim-lua/plenary.nvim" }, -- for curl, log wrapper
+            { "nvim-lua/plenary.nvim" },  -- for curl, log wrapper
         },
         opts = {
             debug = true, -- Enable debugging

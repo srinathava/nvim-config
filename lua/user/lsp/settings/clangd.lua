@@ -26,6 +26,9 @@ return {
             if clangd_path ~= nil then
                 local clangd_args = settings['clangd.arguments']
                 table.insert(clangd_args, 1, clangd_path)
+                -- otherwise nvim lsp spams us with "multiple different
+                -- offset_encoding_errors"
+                table.insert(clangd_args, '--offset-encoding=utf-16')
                 new_config.cmd = clangd_args
             end
         end
