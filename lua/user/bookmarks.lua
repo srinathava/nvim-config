@@ -213,7 +213,6 @@ M.refresh = function()
     -- this is useful when the bookmarks file is updated externally
     bookmarks = load_bookmarks()
     local path = fullpath()
-    vim.print('path: ' .. path)
     for _, bookmark in ipairs(bookmarks) do
         if bookmark.path == path then
             vim.fn.sign_place(0, 'bookmarked', 'bookmarked', vim.fn.bufnr(path), { lnum = bookmark.lnum })
