@@ -52,7 +52,7 @@ return {
         cmd = "ToggleTerm",
         config = function()
             require("toggleterm").setup({
-                shell = "/usr/bin/zsh"
+                shell = "zsh"
             })
         end
     },

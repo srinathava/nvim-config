@@ -13,3 +13,14 @@ require("mason-lspconfig").setup {
 for _, name in pairs(servers) do
     lspconfig[name].setup(opts(name))
 end
+
+local lsp_server_path = vim.fn.getenv('MLIR_LSP_SERVER_PATH')
+if lsp_server_path ~= vim.NIL and vim.fn.executable(lsp_server_path) == 1 then
+    local capabilities = vim.lsp.protocol.make_client_capabilities()
+    lspconfig.mlir_lsp_server.setup {
+        cmd = { lsp_server_path },
+        filetypes = { "mlir" },
+        root_dir = lspconfig.util.root_pattern(".git"),
+        capabilities = capabilities,
+    }
+end

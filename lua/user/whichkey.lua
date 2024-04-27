@@ -9,7 +9,7 @@ end
 
 local function create_lazygit_term()
     local cmd = 'lazygit'
-    if vim.fn.executable('nvr') then
+    if vim.fn.executable('nvr') == 1 then
         -- If nvr is found, then use it within neovim
         cmd = 'lazygit -ucf ~/.config/lazygit/config.yml,' .. script_path() .. 'lazygit_nvr.yml'
     end
@@ -53,7 +53,8 @@ M.setup = function()
         m = {
             name = "Project",
             c = { "<cmd>lua require('user.myproj').copygithub()<cr>", "Copy GitHub URL" },
-            o = { "<cmd>MWOpenFile<cr>", "Open file" },
+            r = { "<cmd>lua require('user.myproj').copyrelpath()<cr>", "Copy relative path" },
+            a = { "<cmd>lua require('user.myproj').copyabspath()<cr>", "Copy absolute path" },
         },
         t = {
             name = "Terminal",

@@ -28,4 +28,14 @@ M.copygithub = function()
     vim.fn.setreg('+', url)
 end
 
+M.copyrelpath = function()
+    local relpath = getrelpath()
+    vim.fn.setreg('+', relpath)
+end
+
+M.copyabspath = function()
+    local abspath = vim.api.nvim_buf_get_name(0)
+    vim.fn.setreg('+', abspath)
+end
+
 return M

@@ -26,12 +26,16 @@ func! ReplaceWord()
             break
         endif
     endfor
+    let default = tok
     if prefix != ''
         let lhs = matchstr(getline('.'), '^\s\+%\zs\d\+\ze = .*')
-        let repl = prefix . '_' . lhs
+        let default = prefix . '_' . lhs
+    elseif tok =~ '^[0-9]\+$'
+        let default = 'val' . tok
     else
-        let repl = input('Enter replacement for "'.tok.'": ', toupper(tok))
+        let default = tok
     endif
+    let repl = input('Enter replacement for "'.tok.'": ', toupper(default))
 
     let s:first_time = 1
     let s:replacement = repl

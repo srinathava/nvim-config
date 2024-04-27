@@ -87,6 +87,7 @@ let g:DirDiffExcludes = "CVS,swp$,exe$,obj$,*.o$"
 let g:did_install_syntax_menu = 1
 
 au BufReadCmd *.slx call zip#Browse(expand("<amatch>"))
+au BufRead,BufNewFile *.mlir set ft=mlir
 
 " s:Mkdir:  {{{
 " Description: 
