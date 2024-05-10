@@ -46,3 +46,8 @@ augroup EnterTermMode
 augroup END
 
 nnoremap <tab> za
+
+" A neat trick to make n always search forward irrespective of whether the
+" search was done using a / or a ?
+noremap <expr> n 'Nn'[v:searchforward]
+noremap <expr> N 'nN'[v:searchforward]
