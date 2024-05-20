@@ -102,6 +102,7 @@ local function goto_bookmark(bookmark)
         vim.cmd('echomsg "cd ' .. bookmark.path .. '"')
         vim.cmd('echohl None')
         vim.cmd('cd ' .. bookmark.path)
+        require('telescope.builtin').find_files({ cwd = vim.fn.getcwd() })
     else
         vim.cmd('drop ' .. bookmark.path)
         vim.cmd('' .. bookmark.lnum)
@@ -229,6 +230,51 @@ M.setup = function()
     vim.cmd [[autocmd BufReadPost * lua require('user.bookmarks').refresh()]]
 end
 
+local function get_pretty_bookmarks()
+    bookmarks = load_bookmarks()
+    local lines = {}
+    for _, bookmark in ipairs(bookmarks) do
+        table.insert(lines, bookmark.lnum .. ' : ' .. bookmark.path)
+    end
+    return lines
+end
+
+local function save_bookmarks_from_editor(bufnr)
+    bookmarks = {}
+    local lines = vim.api.nvim_buf_get_lines(bufnr, 0, -1, false)
+    for _, line in ipairs(lines) do
+        local lnum_str, path = unpack(vim.split(line, ' : '))
+        local lnum = tonumber(lnum_str)
+        table.insert(bookmarks, { path = path, lnum = lnum })
+    end
+    save_bookmarks()
+end
+
+M.edit = function()
+    local lines = get_pretty_bookmarks()
+
+    local width = vim.o.columns - 10
+    local height = 10
+    local bufnr = vim.api.nvim_create_buf(false, false)
+    vim.api.nvim_buf_set_option(bufnr, 'buftype', 'nofile')
+
+    vim.api.nvim_open_win(bufnr, true, {
+        relative = "editor",
+        title = " [ Bookmarks ] ",
+        width = width,
+        height = height,
+        row = math.floor(((vim.o.lines - height) / 2) - 1),
+        col = 5,
+        border = "single",
+    })
+    vim.api.nvim_buf_set_lines(bufnr, 0, #lines, false, lines)
+    vim.api.nvim_create_autocmd({"BufHidden"}, {
+        buffer = bufnr,
+        desc = "Save bookmarks on close",
+        callback = function() save_bookmarks_from_editor(bufnr) end
+    })
+end
+
 --- Add bookmarks to which-key
 local add_bookmarks = function()
     local wk = require('which-key')
@@ -256,6 +302,7 @@ M.refresh_bookmarks = function()
             a = { "<cmd>lua require('user.bookmarks').add()<cr>", "Bookmark current line" },
             d = { "<cmd>lua require('user.bookmarks').add_dir()<cr>", "Bookmark current directory" },
             p = { "<cmd>lua require('user.bookmarks').pick()<cr>", "Choose bookmark" },
+            o = { "<cmd>lua require('user.bookmarks').edit()<cr>", "Open bookmark file" },
         }
     }, { prefix = "<space>" })
     add_bookmarks()

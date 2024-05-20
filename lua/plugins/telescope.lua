@@ -30,6 +30,12 @@ local function buffers_mru()
     require('telescope.builtin').buffers({ sort_mru = true })
 end
 
+local function cmd_history()
+    -- get current text in command line
+    local cmd = vim.fn.getcmdline()
+    require('telescope.builtin').command_history({ default_text = cmd })
+end
+
 -- Telescope
 return {
     "nvim-telescope/telescope.nvim",
@@ -40,7 +46,8 @@ return {
         { "<leader>ff", find_files_cwd, desc = "Find files (current dir)" },
         { "<leader>fS", grep_files,     desc = "Search in files (root)" },
         { "<leader>fs", grep_files_cwd, desc = "Search in files (current dir)" },
-        { "<F3>",       buffers_mru }
+        { "<F3>",       buffers_mru },
+        { "<C-e>",      cmd_history, desc="Command history", mode="c" }
     },
     -- This dependency allows FZF style completion, i.e., you can put
     -- spaces between characters etc.
