@@ -102,7 +102,6 @@ local function goto_bookmark(bookmark)
         vim.cmd('echomsg "cd ' .. bookmark.path .. '"')
         vim.cmd('echohl None')
         vim.cmd('cd ' .. bookmark.path)
-        require('telescope.builtin').find_files({ cwd = vim.fn.getcwd() })
     else
         vim.cmd('drop ' .. bookmark.path)
         vim.cmd('' .. bookmark.lnum)
