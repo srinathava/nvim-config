@@ -110,3 +110,8 @@ let g:tokyonight_colors = {
 set number
 set numberwidth=4
 set signcolumn=yes
+
+" Makes 'wrap' look a little better
+set breakindentopt=shift:2,min:0
+set showbreak=>\ 
+
