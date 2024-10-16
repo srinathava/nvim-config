@@ -135,7 +135,7 @@ M.pick = function(opts)
                     value = entry,
                     display = function()
                         if entry.lnum == -1 then
-                            return entry.path
+                            return utils.transform_path(opts, entry.path)
                         end
                         return utils.transform_path(opts, entry.path .. ':' .. entry.lnum)
                     end,
