@@ -1,7 +1,7 @@
 local lspconfig = require('lspconfig')
 local opts = require('user.lsp.opts')
 
-local servers = { "lua_ls", "clangd", "emmet_ls", "tsserver", "rust_analyzer", "svelte", "yamlls",
+local servers = { "lua_ls", "clangd", "emmet_ls", "ts_ls", "rust_analyzer", "svelte", "yamlls",
     "jedi_language_server" }
 
 require("mason").setup {}

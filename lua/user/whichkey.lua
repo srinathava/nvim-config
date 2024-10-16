@@ -49,20 +49,17 @@ M.setup = function()
     vim.o.timeoutlen = 200
 
     wk.setup()
-    wk.register({
-        m = {
-            name = "Project",
-            c = { "<cmd>lua require('user.myproj').copygithub()<cr>", "Copy GitHub URL" },
-            r = { "<cmd>lua require('user.myproj').copyrelpath()<cr>", "Copy relative path" },
-            a = { "<cmd>lua require('user.myproj').copyabspath()<cr>", "Copy absolute path" },
-        },
-        t = {
-            name = "Terminal",
-            f = { "<cmd>ToggleTerm direction=float<cr>", "Floating" },
-            n = { new_terminal, "New terminal" },
-        },
-        G = { toggle_lazygit, "Lazygit" }
-    }, { prefix = "<space>" })
+    wk.add(
+        {
+            { "<space>G",  toggle_lazygit,                                      desc = "Lazygit" },
+            { "<space>m",  group = "Project" },
+            { "<space>ma", "<cmd>lua require('user.myproj').copyabspath()<cr>", desc = "Copy absolute path" },
+            { "<space>mc", "<cmd>lua require('user.myproj').copygithub()<cr>",  desc = "Copy GitHub URL" },
+            { "<space>mr", "<cmd>lua require('user.myproj').copyrelpath()<cr>", desc = "Copy relative path" },
+            { "<space>t",  group = "Terminal" },
+            { "<space>tf", "<cmd>ToggleTerm direction=float<cr>",               desc = "Floating" },
+            { "<space>tn", new_terminal,                                        desc = "New terminal" },
+        })
     require('user.bookmarks').refresh_bookmarks()
 end
 

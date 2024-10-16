@@ -295,15 +295,14 @@ end
 
 M.refresh_bookmarks = function()
     local wk = require('which-key')
-    wk.register({
-        b = {
-            name = "Bookmarks",
-            a = { "<cmd>lua require('user.bookmarks').add()<cr>", "Bookmark current line" },
-            d = { "<cmd>lua require('user.bookmarks').add_dir()<cr>", "Bookmark current directory" },
-            p = { "<cmd>lua require('user.bookmarks').pick()<cr>", "Choose bookmark" },
-            o = { "<cmd>lua require('user.bookmarks').edit()<cr>", "Open bookmark file" },
-        }
-    }, { prefix = "<space>" })
+
+    wk.add({
+        { "<space>b", group = "Bookmarks" },
+        { "<space>ba", "<cmd>lua require('user.bookmarks').add()<cr>", desc = "Bookmark current line" },
+        { "<space>bd", "<cmd>lua require('user.bookmarks').add_dir()<cr>", desc = "Bookmark current directory" },
+        { "<space>bo", "<cmd>lua require('user.bookmarks').edit()<cr>", desc = "Open bookmark file" },
+        { "<space>bp", "<cmd>lua require('user.bookmarks').pick()<cr>", desc = "Choose bookmark" },
+      })
     add_bookmarks()
 end
 
