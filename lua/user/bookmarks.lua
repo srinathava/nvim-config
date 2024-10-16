@@ -287,8 +287,8 @@ local add_bookmarks = function()
         if string.len(path) > path_limit then
             path = "..." .. string.sub(path, string.len(path) - path_limit - 2)
         end
-        wk.register({
-            [key] = { function() require('user.bookmarks').goto(i) end, "[" .. i .. "] " .. path }
+        wk.add({
+            key, function() require('user.bookmarks').goto(i) end, desc = "[" .. i .. "] " .. path
         })
     end
 end
