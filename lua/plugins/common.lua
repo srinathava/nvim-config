@@ -130,12 +130,6 @@ return {
     },
 
     {
-        dir = '/home/srinath.avadhanula/code/vim-tools-v2',
-        name = 'vim-tools-dev',
-        cmd = { 'Termdebug' }
-    },
-
-    {
         -- The clangd LSP server has formatting support, but it does not
         -- seem to have the same behavior as invoking the clang-format
         -- binary leading to unexpected linter errors.

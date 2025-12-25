@@ -2,7 +2,7 @@ local M = {}
 M.setup = function()
     require 'nvim-treesitter.configs'.setup {
         -- A list of parser names, or "all"
-        ensure_installed = { "c", "cpp", "python", "javascript", "markdown", "lua", "svelte", "typescript", "css", "mlir" },
+        ensure_installed = { "c", "cpp", "python", "javascript", "markdown", "lua", "svelte", "typescript", "css" },
 
         highlight = {
             -- `false` will disable the whole extension

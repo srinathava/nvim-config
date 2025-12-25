@@ -1,6 +1,5 @@
-local lspconfig = require('lspconfig')
 return {
-    root_dir = lspconfig.util.root_pattern(".git"),
+    root_patterns = {".git"},
     init_options = {
         workspace = {
             extraPaths = {

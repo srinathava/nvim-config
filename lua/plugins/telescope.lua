@@ -47,7 +47,7 @@ return {
         { "<leader>fS", grep_files,     desc = "Search in files (root)" },
         { "<leader>fs", grep_files_cwd, desc = "Search in files (current dir)" },
         { "<F3>",       buffers_mru },
-        { "<C-e>",      cmd_history, desc="Command history", mode="c" }
+        { "<C-e>",      cmd_history,    desc = "Command history",              mode = "c" }
     },
     -- This dependency allows FZF style completion, i.e., you can put
     -- spaces between characters etc.
@@ -70,6 +70,6 @@ return {
                 }
             }
         })
-        require('telescope').load_extension('fzf')
+        -- require('telescope').load_extension('fzf')
     end
 }
