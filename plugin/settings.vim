@@ -88,6 +88,8 @@ let g:did_install_syntax_menu = 1
 
 au BufReadCmd *.slx call zip#Browse(expand("<amatch>"))
 au BufRead,BufNewFile *.mlir set ft=mlir
+au BufRead,BufNewFile *.h.inc set ft=cpp
+au BufRead,BufNewFile *.cpp.inc set ft=cpp
 
 " s:Mkdir:  {{{
 " Description: 
