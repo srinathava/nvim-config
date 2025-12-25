@@ -1,6 +1,6 @@
 local opts = require('user.lsp.opts')
 
-local servers = { "lua_ls", "clangd", "yamlls", "jedi_language_server" }
+local servers = { "lua_ls", "clangd", "yamlls" }
 
 require("mason").setup {}
 
@@ -9,5 +9,6 @@ require("mason-lspconfig").setup {
 }
 
 for _, name in pairs(servers) do
-    vim.lsp.enable(name, opts(name))
+    vim.lsp.config[name] = opts(name)
+    vim.lsp.enable(name)
 end
