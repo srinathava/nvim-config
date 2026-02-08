@@ -7,6 +7,18 @@ return {
 
     { "catppuccin/nvim",       name = "catppuccin", priority = 1000 },
 
+    {
+        "folke/lazydev.nvim",
+        -- ft = "lua", -- only load on lua files
+        opts = {
+            library = {
+                -- See the configuration section for more details
+                -- Load luvit types when the `vim.uv` word is found
+                { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+            },
+        },
+    },
+
     -- LSP
     {
         "neovim/nvim-lspconfig", -- enable LSP
@@ -15,7 +27,6 @@ return {
             "williamboman/mason-lspconfig.nvim",
             "jose-elias-alvarez/null-ls.nvim",
             "williamboman/mason.nvim",
-            { "folke/neodev.nvim", opts = {} },
         },
         config = function()
             require("user.lsp")
@@ -178,6 +189,5 @@ return {
         },
         cmd = { 'CopilotChat' }
     },
-
 
 }

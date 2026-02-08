@@ -13,3 +13,8 @@ vim.api.nvim_create_user_command('WrapLine',
     function()
         require('user.wrapline').init()
     end, {})
+
+vim.api.nvim_create_user_command('Summarize',
+    function()
+        require('user.summary').init()
+    end, {})

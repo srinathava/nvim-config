@@ -36,7 +36,7 @@ endif
 set wildmode=longest:list
 set wildmenu
 set autoread
-set mousemodel=popup_setpos
+set mouse=
 set sessionoptions=buffers,curdir,folds,globals
 set undofile
 set modeline
@@ -116,4 +116,5 @@ set signcolumn=yes
 " Makes 'wrap' look a little better
 set breakindentopt=shift:2,min:0
 set showbreak=>\ 
-
+set sidescroll=20
+set sidescrolloff=20
