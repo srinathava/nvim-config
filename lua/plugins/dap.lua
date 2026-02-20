@@ -50,6 +50,16 @@ return {
             -- Use whatever python3 is on PATH so this works across machines.
             require('dap-python').setup(vim.fn.exepath('python3'))
 
+            local dap = require('dap')
+
+            -- Override the default 'file' config to use nvim's cwd instead of
+            -- the file's directory.
+            for _, config in ipairs(dap.configurations.python) do
+                if config.name == 'file' or config.name == 'file:args' then
+                    config.cwd = vim.fn.getcwd
+                end
+            end
+
             -- Additional configurations on top of the defaults provided by
             -- nvim-dap-python (launch current file, attach to a running process)
             local dap = require('dap')
@@ -85,10 +95,11 @@ return {
                 layouts = {
                     {
                         elements = {
-                            { id = 'scopes',      size = 0.40 },
+                            { id = 'controls',    size = 0.10 },
+                            { id = 'scopes',      size = 0.35 },
                             { id = 'breakpoints', size = 0.20 },
                             { id = 'stacks',      size = 0.20 },
-                            { id = 'watches',     size = 0.20 },
+                            { id = 'watches',     size = 0.15 },
                         },
                         size = 40,
                         position = 'left',
