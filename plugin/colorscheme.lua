@@ -18,6 +18,12 @@ require("tokyonight").setup({
             fg = colors.comment,
             italic = true
         }
+        -- DAP breakpoint signs
+        hl.DapBreakpoint         = { fg = colors.red }
+        hl.DapBreakpointCondition = { fg = colors.yellow }
+        hl.DapLogPoint           = { fg = colors.blue }
+        hl.DapStopped            = { fg = colors.green }
+        hl.DapBreakpointRejected = { fg = colors.orange }
     end
 })
 

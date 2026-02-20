@@ -52,6 +52,18 @@ M.setup = function()
     wk.add(
         {
             { "<space>G",  toggle_lazygit,                                      desc = "Lazygit" },
+            { "<space>d",  group = "Debug" },
+            { "<space>db", "<cmd>lua require('dap').toggle_breakpoint()<cr>",   desc = "Toggle Breakpoint" },
+            { "<space>dB", "<cmd>lua require('dap').set_breakpoint(vim.fn.input('Breakpoint condition: '))<cr>", desc = "Conditional Breakpoint" },
+            { "<space>dc", "<cmd>lua require('dap').continue()<cr>",            desc = "Continue" },
+            { "<space>di", "<cmd>lua require('dap').step_into()<cr>",           desc = "Step Into" },
+            { "<space>do", "<cmd>lua require('dap').step_over()<cr>",           desc = "Step Over" },
+            { "<space>dO", "<cmd>lua require('dap').step_out()<cr>",            desc = "Step Out" },
+            { "<space>dr", "<cmd>lua require('dap').repl.toggle()<cr>",         desc = "REPL" },
+            { "<space>dq", "<cmd>lua require('dap').terminate()<cr>",           desc = "Quit / Terminate" },
+            { "<space>du", "<cmd>lua require('dapui').toggle()<cr>",            desc = "Toggle UI" },
+            { "<space>dp", "<cmd>lua require('dap-python').test_method()<cr>",  desc = "Debug Python Method" },
+            { "<space>dP", "<cmd>lua require('dap-python').test_class()<cr>",   desc = "Debug Python Class" },
             { "<space>m",  group = "Project" },
             { "<space>ma", "<cmd>lua require('user.myproj').copyabspath()<cr>", desc = "Copy absolute path" },
             { "<space>mc", "<cmd>lua require('user.myproj').copygithub()<cr>",  desc = "Copy GitHub URL" },
