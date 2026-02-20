@@ -1,3 +1,5 @@
+local plugin_dir = vim.fn.expand("$HOME/code/vim-tools-v2")
+
 return {
     -- My plugins here
     "nvim-lua/plenary.nvim", -- Useful lua functions used by lots of plugins
@@ -189,5 +191,10 @@ return {
         },
         cmd = { 'CopilotChat' }
     },
-
+    {
+        "srinathava/vim-tools-v2",
+        cmd = "Termdebug",
+        dir = plugin_dir,
+        cond = vim.fn.isdirectory(plugin_dir) == 1
+    }
 }
