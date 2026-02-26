@@ -36,7 +36,7 @@ endif
 set wildmode=longest:list
 set wildmenu
 set autoread
-set mouse=
+set mouse=inv
 set sessionoptions=buffers,curdir,folds,globals
 set undofile
 set modeline
